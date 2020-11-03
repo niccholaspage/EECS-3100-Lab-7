@@ -90,8 +90,9 @@ void Init_GPIO_PortsEBF(void) {
 	
 	// Port F initialization
 	GPIO_PORTF_DIR_R |= 0x0A;					// make PF3 and PF1 outputs
-	GPIO_PORTF_AFSEL_R &= 0x0A;				// disable ALT functions on PF5-0
-	GPIO_PORTF_PCTL_R = (GPIO_PORTB_PCTL_R & 0xFFFF0F0F) + 0x00000000;
+	GPIO_PORTF_AFSEL_R &= 0x0A;				// disable ALT functions on PF3 and PF1
+	GPIO_PORTF_DEN_R |= 0x0A;					// enable digital I/O on PF3, PF1
+  GPIO_PORTF_PCTL_R = (GPIO_PORTF_PCTL_R & 0xFFFF0F0F) + 0x00000000;
 	GPIO_PORTF_AMSEL_R &= ~0x0A;			// disable analog functionality on PF3 and PF1
 }
 
@@ -103,7 +104,7 @@ int main(void){
 	SysTick_Init();
 	Init_GPIO_PortsEBF();
 	
-	n = walkStopSW; // Initial state: green south, west red
+	n = goS; // Initial state: green south, west red
   
   EnableInterrupts();
 
@@ -115,7 +116,7 @@ int main(void){
 		// so we have to shift left one bit, putting PF1 in its correct place.
 		// Finally, we take the original output, shift it to the right 7 bits,
 		// then back to the left 3 bits to finalize PF3.
-		GPIO_PORTF_OUT = (FSM[n].Out > 6 < 1) | (FSM[n].Out > 7 < 3);
+		GPIO_PORTF_OUT = ((FSM[n].Out >> 7) << 3) | ((FSM[n].Out >> 6) << 1);
     SysTick_Wait10ms(FSM[n].Time);  // wait 10 ms * current state's Time value
     Input = SENSOR;                 // get new input from car detectors
     n = FSM[n].Next[Input];         // transition to next state
