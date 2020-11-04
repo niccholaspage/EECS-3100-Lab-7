@@ -73,8 +73,8 @@ typedef const struct State STyp;
 // Bit 0 - PB0 - South Green
 
 STyp FSM[12] = {
- {0x61, 200, {goS, slowS, goS, slowS, stopSlowS, stopSlowS, stopSlowS, stopSlowS}}, // goS
- {0x62, 200, {goW, goW, goW, goW, stopSW, stopSW, stopSW, stopSW}}, // slowS
+ {0x61, 200, {goS, slowS, goS, slowS, stopSlowS, stopSlowS, stopSlowS, slowS}}, // goS
+ {0x62, 200, {goW, goW, goW, goW, stopSW, stopSW, stopSW, goW}}, // slowS
  {0x4C, 200, {goW, goW, slowW, slowW, stopSlowW, stopSlowW, stopSlowW, stopSlowW}}, // goW
  {0x54, 200, {goS, goS, goS, goS, stopSW, stopSW, stopSW, stopSW}}, // slowW
  {0x62, 200, {stopSW, stopSW, stopSW, stopSW, stopSW, stopSW, stopSW, stopSW}}, // stopSlowS
