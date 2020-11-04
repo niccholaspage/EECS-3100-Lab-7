@@ -45,28 +45,34 @@ struct State {
 typedef const struct State STyp;
 
 #define goS	0
-#define goW	1
-#define walkStopSW 2
+#define slowS 1
+#define goW	2
+#define slowW 3
+#define noWalkStopSW 4
+#define walkStopSW 5
 
 // Port I/O
-// PE2-0 = inputs (south sensor, west sensor, and walk button)
+// PE2-0 = inputs (walk sensor, south sensor, and west button)
 // PB5-0 = traffic light outputs
 // PF3 & PF1 = walking LEDs
 
 //State machine output:
 // Bit 7 - PF3 - green LED, walk light
 // Bit 6 - PF1 - red LED, don't walk light
-// Bit 5 - PB5 - South Red
-// Bit 4 - PB4 - South Yellow
-// Bit 3 - PB3 - South Green
-// Bit 2 - PB2 - West Red
-// Bit 1 - PB1 - West Yellow
-// Bit 0 - PB0 - West Green
+// Bit 5 - PB5 - West Red
+// Bit 4 - PB4 - West Yellow
+// Bit 3 - PB3 - West Green
+// Bit 2 - PB2 - South Red
+// Bit 1 - PB1 - South Yellow
+// Bit 0 - PB0 - South Green
 
-STyp FSM[3] = {
-	{0x61, 5, {goS, goS, goS, goS, goS, goS, goS, goS}}, // goS
-	{0x4C, 5, {goS, goS, goS, goS, goS, goS, goS, goS}}, // goW
-	{0xA4, 5, {walkStopSW, walkStopSW, walkStopSW, walkStopSW, walkStopSW, walkStopSW, walkStopSW, walkStopSW}}, // walkStopSW
+STyp FSM[6] = {
+	{0x61, 200, {goS, goS, goS, goS, goS, goS, goS, goS}}, // goS
+	{0x62, 200, {goS, goS, goS, goS, goS, goS, goS, goS}}, // slowS
+	{0x4C, 200, {goS, goS, goS, goS, goS, goS, goS, goS}}, // goW
+	{0x54, 200, {goS, goS, goS, goS, goS, goS, goS, goS}}, // slowW
+	{0x24, 200, {goS, goS, goS, goS, goS, goS, goS, goS}}, // noWalkStopSW
+	{0xA4, 200, {walkStopSW, walkStopSW, walkStopSW, walkStopSW, walkStopSW, walkStopSW, walkStopSW, walkStopSW}}, // walkStopSW
 };
 
 volatile unsigned long delay;
