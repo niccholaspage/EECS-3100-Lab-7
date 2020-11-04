@@ -44,12 +44,18 @@ struct State {
 
 typedef const struct State STyp;
 
-#define goS	0
+#define goS 0
 #define slowS 1
-#define goW	2
+#define goW 2
 #define slowW 3
-#define noWalkStopSW 4
-#define walkStopSW 5
+#define stopSlowS 4
+#define stopSlowW 5
+#define stopSW 6
+#define stopBlink1SW 7
+#define stopBlink2SW 8
+#define stopBlink3SW 9
+#define stopBlink4SW 10
+#define stopSolidSW 11
 
 // Port I/O
 // PE2-0 = inputs (walk sensor, south sensor, and west button)
@@ -66,13 +72,19 @@ typedef const struct State STyp;
 // Bit 1 - PB1 - South Yellow
 // Bit 0 - PB0 - South Green
 
-STyp FSM[6] = {
-	{0x61, 200, {goS, goS, goS, goS, goS, goS, goS, goS}}, // goS
-	{0x62, 200, {goS, goS, goS, goS, goS, goS, goS, goS}}, // slowS
-	{0x4C, 200, {goS, goS, goS, goS, goS, goS, goS, goS}}, // goW
-	{0x54, 200, {goS, goS, goS, goS, goS, goS, goS, goS}}, // slowW
-	{0x24, 200, {goS, goS, goS, goS, goS, goS, goS, goS}}, // noWalkStopSW
-	{0xA4, 200, {walkStopSW, walkStopSW, walkStopSW, walkStopSW, walkStopSW, walkStopSW, walkStopSW, walkStopSW}}, // walkStopSW
+STyp FSM[12] = {
+ {0x61, 200, {goS, slowS, goS, slowS, stopSlowS, stopSlowS, stopSlowS, stopSlowS}}, // goS
+ {0x62, 200, {goW, goW, goW, goW, stopSW, stopSW, stopSW, stopSW}}, // slowS
+ {0x4C, 200, {goW, goW, slowW, slowW, stopSlowW, stopSlowW, stopSlowW, stopSlowW}}, // goW
+ {0x54, 200, {goS, goS, goS, goS, stopSW, stopSW, stopSW, stopSW}}, // slowW
+ {0x62, 200, {stopSW, stopSW, stopSW, stopSW, stopSW, stopSW, stopSW, stopSW}}, // stopSlowS
+ {0x54, 200, {stopSW, stopSW, stopSW, stopSW, stopSW, stopSW, stopSW, stopSW}}, // stopSlowW
+ {0xA4, 200, {stopBlink1SW, stopBlink1SW, stopBlink1SW, stopBlink1SW, stopBlink1SW, stopBlink1SW, stopBlink1SW, stopBlink1SW}}, // stopSW
+ {0x64, 100, {stopBlink2SW, stopBlink2SW, stopBlink2SW, stopBlink2SW, stopBlink2SW, stopBlink2SW, stopBlink2SW, stopBlink2SW}}, // stopBlink1SW
+ {0x24, 100, {stopBlink3SW, stopBlink3SW, stopBlink3SW, stopBlink3SW, stopBlink3SW, stopBlink3SW, stopBlink3SW, stopBlink3SW}}, // stopBlink2SW
+ {0x64, 100, {stopBlink4SW, stopBlink4SW, stopBlink4SW, stopBlink4SW, stopBlink4SW, stopBlink4SW, stopBlink4SW, stopBlink4SW}}, // stopBlink3SW
+ {0x24, 100, {stopSolidSW, stopSolidSW, stopSolidSW, stopSolidSW, stopSolidSW, stopSolidSW, stopSolidSW, stopSolidSW}}, // stopBlink4SW
+ {0x64, 200, {goS, goW, goS, goW, goW, goW, goS, goS}} // stopSolidSW
 };
 
 volatile unsigned long delay;
