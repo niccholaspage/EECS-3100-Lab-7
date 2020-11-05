@@ -1,14 +1,15 @@
 /*******************************************************************
  * TableTrafficLight.c
- * Instructor: ***fill this in***
+ * Instructor: Devinder Kaur
+ * Lab Number: 7
  * Runs on LM4F120/TM4C123
  * Index implementation of a Moore finite state machine to operate a traffic light.  
  * Authors: Daniel Valvano,
  *					Jonathan Valvano,
  * 					Thomas Royko
- * Student: ***fill this in***
- * Section: ***fill this in***
- * Date:    ***fill this in***
+ * Student: Nicholas Nassar
+ * Section: 002
+ * Date:    11/04/2020
  *
  * east/west red light connected to PB5
  * east/west yellow light connected to PB4
@@ -51,16 +52,16 @@ typedef const struct State STyp;
 #define stopSlowS 4
 #define stopSlowW 5
 #define stopSW 6
-#define stopBlink1SW 7
-#define stopBlink2SW 8
-#define stopBlink3SW 9
-#define stopBlink4SW 10
+#define blinkStop1SW 7
+#define blinkStop2SW 8
+#define blinkStop3SW 9
+#define blinkStop4SW 10
 #define stopSolidSW 11
 
 // Port I/O
 // PE2-0 = inputs (walk sensor, south sensor, and west button)
 // PB5-0 = traffic light outputs
-// PF3 & PF1 = walking LEDs
+// PF3 & PF1 = walk/don't walk LEDs
 
 //State machine output:
 // Bit 7 - PF3 - green LED, walk light
@@ -79,11 +80,11 @@ STyp FSM[12] = {
  {0x54, 200, {goS, goS, goS, goS, stopSW, stopSW, stopSW, stopSW}}, // slowW
  {0x62, 200, {stopSW, stopSW, stopSW, stopSW, stopSW, stopSW, stopSW, stopSW}}, // stopSlowS
  {0x54, 200, {stopSW, stopSW, stopSW, stopSW, stopSW, stopSW, stopSW, stopSW}}, // stopSlowW
- {0xA4, 200, {stopBlink1SW, stopBlink1SW, stopBlink1SW, stopBlink1SW, stopBlink1SW, stopBlink1SW, stopBlink1SW, stopBlink1SW}}, // stopSW
- {0x64, 100, {stopBlink2SW, stopBlink2SW, stopBlink2SW, stopBlink2SW, stopBlink2SW, stopBlink2SW, stopBlink2SW, stopBlink2SW}}, // stopBlink1SW
- {0x24, 100, {stopBlink3SW, stopBlink3SW, stopBlink3SW, stopBlink3SW, stopBlink3SW, stopBlink3SW, stopBlink3SW, stopBlink3SW}}, // stopBlink2SW
- {0x64, 100, {stopBlink4SW, stopBlink4SW, stopBlink4SW, stopBlink4SW, stopBlink4SW, stopBlink4SW, stopBlink4SW, stopBlink4SW}}, // stopBlink3SW
- {0x24, 100, {stopSolidSW, stopSolidSW, stopSolidSW, stopSolidSW, stopSolidSW, stopSolidSW, stopSolidSW, stopSolidSW}}, // stopBlink4SW
+ {0xA4, 200, {blinkStop1SW, blinkStop1SW, blinkStop1SW, blinkStop1SW, blinkStop1SW, blinkStop1SW, blinkStop1SW, blinkStop1SW}}, // stopSW
+ {0x64, 100, {blinkStop2SW, blinkStop2SW, blinkStop2SW, blinkStop2SW, blinkStop2SW, blinkStop2SW, blinkStop2SW, blinkStop2SW}}, // blinkStop1SW
+ {0x24, 100, {blinkStop3SW, blinkStop3SW, blinkStop3SW, blinkStop3SW, blinkStop3SW, blinkStop3SW, blinkStop3SW, blinkStop3SW}}, // blinkStop2SW
+ {0x64, 100, {blinkStop4SW, blinkStop4SW, blinkStop4SW, blinkStop4SW, blinkStop4SW, blinkStop4SW, blinkStop4SW, blinkStop4SW}}, // blinkStop3SW
+ {0x24, 100, {stopSolidSW, stopSolidSW, stopSolidSW, stopSolidSW, stopSolidSW, stopSolidSW, stopSolidSW, stopSolidSW}}, // blinkBlink4SW
  {0x64, 200, {goS, goW, goS, goW, goW, goW, goS, goS}} // stopSolidSW
 };
 

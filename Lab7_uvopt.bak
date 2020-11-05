@@ -227,7 +227,7 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>272</TopLine>
+      <TopLine>273</TopLine>
       <CurrentLine>277</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\startup.s</PathWithFileName>
@@ -241,10 +241,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>28</ColumnNumber>
+      <ColumnNumber>27</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1</TopLine>
-      <CurrentLine>69</CurrentLine>
+      <TopLine>64</TopLine>
+      <CurrentLine>70</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\TableTrafficLight.c</PathWithFileName>
       <FilenameWithoutPath>TableTrafficLight.c</FilenameWithoutPath>
@@ -259,8 +259,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1</TopLine>
-      <CurrentLine>61</CurrentLine>
+      <TopLine>41</TopLine>
+      <CurrentLine>59</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\SysTick.c</PathWithFileName>
       <FilenameWithoutPath>SysTick.c</FilenameWithoutPath>
