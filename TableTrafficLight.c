@@ -59,7 +59,7 @@ typedef const struct State STyp;
 #define stopSolidSW 11
 
 // Port I/O
-// PE2-0 = inputs (walk sensor, south sensor, and west button)
+// PE2-0 = inputs (walk button, south sensor, and west sensor)
 // PB5-0 = traffic light outputs
 // PF3 & PF1 = walk/don't walk LEDs
 
